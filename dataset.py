@@ -3,14 +3,14 @@ import torch
 
 from utils import read_images
 
-NUM_CLASSES = 24
+NUM_CLASSES = 22
 LABEL_MAP = {
     0: "ape", 1: "bear", 2: "bison", 3: "cat", 
     4: "chicken", 5: "cow", 6: "deer", 7: "dog",
-    9: "dolphin", 10: "duck", 11: "eagle", 12: "fish", 
-    13: "horse", 14: "lion", 15: "lobster", 
-    16: "pig", 17: "rabbit", 19: "shark", 20: "snake", 
-    21: "spider", 22:  "turkey", 23: "wolf"
+    8: "dolphin", 9: "duck", 10: "eagle", 11: "fish", 
+    12: "horse", 13: "lion", 14: "lobster", 
+    15: "pig", 16: "rabbit", 17: "shark", 18: "snake", 
+    19: "spider", 20:  "turkey", 21: "wolf"
 }
 
 class AnimalDataset(torch.utils.data.Dataset):
