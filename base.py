@@ -28,7 +28,7 @@ LABEL_MAP = {
     19: "spider", 20:  "turkey", 21: "wolf"
 }
 
-class AnimalDataset(VisionDataset):
+class LabeledAnimalDataset(VisionDataset):
     def __init__(
         self, 
         root: str,
@@ -57,11 +57,48 @@ class AnimalDataset(VisionDataset):
                 imgs = read_images(dir)   # make sure read the images at dict sequence
                 self.data.extend(imgs)
                 imgs_label_names_map = json.load(
-                    os.path.join(root, "test", "test_data.json")
+                    os.path.join(root, "test_data.json")
                 )
                 self.targets = list(map(LABELS.index, 
                                         imgs_label_names_map.values()))
 
+
+    def __getitem__(self, index: int) -> Any:
+        """
+        Args:
+            index (int): Index
+
+        Returns:
+            tuple: (image, target) where target is index of the target class.
+        """
+        img, target = self.data[index], self.targets[index]
+
+        # doing this so that it is consistent with all other datasets
+        # to return a PIL Image
+        img = Image.fromarray(img)
+
+        if self.transform is not None:
+            img = self.transform(img)
+
+        if self.target_transform is not None:
+            target = self.target_transform(target)
+
+        return img, target
+
+    def __len__(self) -> int:
+        return len(self.data)
+
+class UnlabeledAnimalDataset(VisionDataset):
+    """[summary]
+
+    Args:
+        VisionDataset ([type]): [description]
+    """
+
+    def __init__(self, 
+                root: str, 
+                transforms: Optional[Callable] = None, transform: Optional[Callable] = None, target_transform: Optional[Callable] = None) -> None:
+        super().__init__(root, transforms=transforms, transform=transform, target_transform=target_transform)
 
     def __getitem__(self, index: int) -> Any:
         """
