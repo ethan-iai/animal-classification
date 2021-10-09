@@ -137,3 +137,6 @@ data/
 # logs
 wandb/
 results/
+
+*.pth.tar
+*.json
