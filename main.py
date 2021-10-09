@@ -77,7 +77,6 @@ parser.add_argument('--world-size', default=-1, type=int,
                     help='number of nodes for distributed training')
 parser.add_argument("--local-rank", type=int, default=-1,
                     help="For distributed training: local_rank")
-parser.add_argument("--gpu", )
 
 
 def set_seed(args):
