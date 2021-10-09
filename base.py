@@ -1,5 +1,8 @@
 import os
-import json
+import random
+import logging
+from numpy import ma
+from numpy.core.fromnumeric import mean
 import torch
 import numpy as np
 import torch.utils.data as data
@@ -9,6 +12,8 @@ from typing import Any, Callable, List, Optional, Tuple
 from torchvision.datasets import VisionDataset
 
 from utils import read_images
+
+logger = logging.getLogger(__name__)
 
 NUM_CLASSES = 22
 LABELS = [
@@ -44,24 +49,17 @@ class LabeledAnimalDataset(VisionDataset):
             self.data = []
             self.targets = []
 
-            if self.train:
-                dir = os.path.join(root, "train")
-                for i, dir in enumerate(sorted(dir)):
-                    imgs = read_images(dir)
-                    self.data.extend(imgs)    
-                    self.targets.extand([i, ] * len(imgs))
-            
-                self.data = np.stack(self.data, axis=0)
-            else:
-                dir = os.path.join(root, "test")
-                imgs = read_images(dir)   # make sure read the images at dict sequence
-                self.data.extend(imgs)
-                imgs_label_names_map = json.load(
-                    os.path.join(root, "test_data.json")
-                )
-                self.targets = list(map(LABELS.index, 
-                                        imgs_label_names_map.values()))
-
+            dir = os.path.join(root, "train")
+            for i, sub_dir in enumerate(sorted(os.listdir(dir))):
+                imgs = read_images(os.path.join(dir, sub_dir))
+                
+                if self.train:
+                    imgs = imgs[: int(0.8 * len(imgs))]
+                else:
+                    imgs = imgs[int(0.8 * len(imgs)): ]
+                
+                self.data.extend(imgs)    
+                self.targets.extend([i, ] * len(imgs))
 
     def __getitem__(self, index: int) -> Any:
         """
@@ -72,10 +70,6 @@ class LabeledAnimalDataset(VisionDataset):
             tuple: (image, target) where target is index of the target class.
         """
         img, target = self.data[index], self.targets[index]
-
-        # doing this so that it is consistent with all other datasets
-        # to return a PIL Image
-        img = Image.fromarray(img)
 
         if self.transform is not None:
             img = self.transform(img)
@@ -124,3 +118,46 @@ class UnlabeledAnimalDataset(VisionDataset):
 
     def __len__(self) -> int:
         return len(self.data)
+
+from torchvision import transforms
+
+if __name__ == '__main__':
+    transform_labeled = transforms.Compose([
+        transforms.RandomHorizontalFlip(),
+        transforms.RandomCrop(size=32,
+                              padding=int(32 * 0.125),
+                              padding_mode='reflect'),
+        transforms.ToTensor(),
+    ])
+    
+    labeled_animal_dataset = LabeledAnimalDataset("data", train=False, 
+                                                  transform=transform_labeled)
+
+    print(f"len: {len(labeled_animal_dataset)}")
+
+    dataloader = torch.utils.data.DataLoader(
+        labeled_animal_dataset, 
+        batch_size=len(labeled_animal_dataset),
+        shuffle=True
+    )
+
+    for images, labels in dataloader:
+        arrs = images.numpy()
+
+        # x = np.mean(arrs, axis=0)
+        # x = np.mean(x, axis=1)
+        # x = np.mean(x, axis=1)
+        # print(x)
+        
+        means = []
+        stds = []
+
+        for map in np.transpose(arrs, (1, 0, 2, 3)):
+            # assert(map.shape == (, 32, 32))
+            
+            means.append(np.mean(map))
+            stds.append(np.std(map))
+        
+        print(means)
+        print(stds)
+        # np.std

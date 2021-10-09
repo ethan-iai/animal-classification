@@ -23,8 +23,8 @@ cifar100_std = (0.2675, 0.2565, 0.2761)
 normal_mean = (0.5, 0.5, 0.5)
 normal_std = (0.5, 0.5, 0.5)
 
-# TODO: 
-# add dataset mean and std here 
+animal_data_mean = (0.5019333, 0.49997845, 0.44068748)
+animal_data_std = (0.28612566, 0.26815864, 0.28786656)
 
 def get_animal_data(args):
     transform_labeled = transforms.Compose([
@@ -33,11 +33,11 @@ def get_animal_data(args):
                               padding=int(args.resize*0.125),
                               padding_mode='reflect'),
         transforms.ToTensor(),
-        transforms.Normalize(mean=cifar10_mean, std=cifar10_std)
+        transforms.Normalize(mean=animal_data_mean, std=animal_data_std)
     ])
     transform_val = transforms.Compose([
         transforms.ToTensor(),
-        transforms.Normalize(mean=cifar10_mean, std=cifar10_std)
+        transforms.Normalize(mean=animal_data_mean, std=animal_data_std)
     ])
 
 
@@ -48,7 +48,7 @@ def get_animal_data(args):
     train_unlabeled_dataset = LabeledAnimalDataset(
         args.data_path,
         train=True,
-        transform=TransformMPL(args, mean=cifar10_mean, std=cifar10_std)
+        transform=TransformMPL(args, mean=animal_data_mean, std=animal_data_std)
     )
     test_dataset = LabeledAnimalDataset(
         args.data_path, 
