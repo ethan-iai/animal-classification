@@ -24,7 +24,10 @@ def read_image(path, shape=None, resample=None):
     Returns:
         [PIL.Image]: [description]
     """
-    return Image.open(path).convert("RGB")
+    try:
+        return Image.open(path).convert("RGB")
+    except:
+        return None
     # if shape is not None:
     #     img = img.resize(shape, resample)
     # return np.array(img)
@@ -52,6 +55,8 @@ def read_images(path, shape=None, resample=None):
             continue
         img = read_image(os.path.join(path, img_name), 
                          shape, resample)
+        if img == None:
+            continue
         imgs.append(img)
     # imgs = np.stack(imgs, axis=0)
 
