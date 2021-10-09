@@ -76,8 +76,8 @@ parser.add_argument('--multiprocessing-distributed', action='store_true',
                          'N processes per node, which has N GPUs. This is the '
                          'fastest way to use PyTorch for either single node or '
                          'multi node data parallel training')
-ParseResult.add_argument('-n', type=int)
-ParseResult.add_argument('-m', type=int)
+parser.add_argument('-n', type=int)
+parser.add_argument('-m', type=int)
 
 best_acc1 = 0
 
@@ -428,7 +428,7 @@ def accuracy(output, target, topk=(1,)):
 
         res = []
         for k in topk:
-            correct_k = correct[:k].view(-1).float().sum(0, keepdim=True)
+            correct_k = correct[:k].reshape(-1).float().sum(0, keepdim=True)
             res.append(correct_k.mul_(100.0 / batch_size))
         return res
 
