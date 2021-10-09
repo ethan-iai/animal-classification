@@ -40,7 +40,7 @@ parser.add_argument('--total-steps', default=300000, type=int, help='number of t
 parser.add_argument('--eval-step', default=1000, type=int, help='number of eval steps to run')
 parser.add_argument('--start-step', default=0, type=int,
                     help='manual epoch number (useful on restarts)')
-parser.add_argument('--workers', default=4, type=int, help='number of workers')
+parser.add_argument('--workers', default=0, type=int, help='number of workers')
 parser.add_argument('--num-classes', default=10, type=int, help='number of classes')
 parser.add_argument('--resize', default=32, type=int, help='resize image')
 parser.add_argument('--batch-size', default=64, type=int, help='train batch size')
