@@ -140,7 +140,9 @@ def main():
     ids = [name.split('.')[0] for name in sorted(os.listdir(args.data))]
     labels = [LABEL_MAP[index] for index in indices]
 
-    out_dict = dict(zip(ids, labels))
+    out_list = list(zip(ids, labels))
+    out_list.sort(key= lambda k:int(k[0]))
+    out_dict = dict(out_list)
 
     print(out_dict)
 
