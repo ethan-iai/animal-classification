@@ -6,6 +6,6 @@ python imagenet.py data -b 1 -j 0 -a resnet50 --gpu 0
 
 & D:/anaconda/envs/torch38/python.exe d:/animal-classification/imagenet.py data -b 4 -j 0 -a resnet50 --gpu 0
 
-python infernce.py -a resnet50 -gpu 0 -b 16 -j 0 --resume model_best.pth.tar
+python infernce.py -data data/test -a resnet50 --gpu 0 -b 16 -j 0 --resume model_best.pth.tar
 
 & D:/anaconda/envs/torch38/python.exe d:/animal-classification/inference.py --data data/test -a resnet50 --gpu 0 -b 16 -j 0 --resume model_best.pth.tar
