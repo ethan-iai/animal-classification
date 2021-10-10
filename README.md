@@ -3,7 +3,7 @@
 This repostory contains the code for animal-calssifcation task published in class.
 
 ## Dataset
-Clink [here](https://bhpan.buaa.edu.cn/#/link/7398EF6A7925D8A23C48EE4E9ED919E1) to download.
+Click [here](https://bhpan.buaa.edu.cn/#/link/7398EF6A7925D8A23C48EE4E9ED919E1) to download.
 
 ## Installation
 
@@ -15,11 +15,13 @@ version, Python 3.6 or later should work fine.
 By default, the script will download the checkpint under the repository.
 you could change it by setting the path variable while running the script.
 
-lude wrappers for these models. Run the model's .py file to download its checkpoint or view instructions for downloading. For example, if you want to download the Resnet152's checkpoint, please run:
+lude wrappers for these models. Run the model's .py file to download its checkpoint or view instructions for downloading. For example, if you want to download the `Resnet152`'s checkpoint, please run:
 
 ```shell
 python example/resnet512.py path/to/download
 ```
+
+Alternatively, click [here](https://1drv.ms/u/s!Al5BF1i8TRVbiQt2whUMwlzTn69R?e=qMr3XT) to download `Resnet512`'s checkpoint.
 
 ## Examples
 
