@@ -7,7 +7,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("root", default="", type=str)
 
 MODEL_NAME = "resnet152_baseline.pth.tar"
-ONEDRIVE_SHARED_LINK = 'https://1drv.ms/u/s!Al5BF1i8TRVbiQrvKxuFA3Eh-SUY?e=Iaw65v'
+ONEDRIVE_SHARED_LINK = "https://1drv.ms/u/s!Al5BF1i8TRVbiQt2whUMwlzTn69R?e=qMr3XT"
 
 def download(model_path):
     if not os.path.exists(model_path):
