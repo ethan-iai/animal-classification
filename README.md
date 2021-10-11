@@ -27,10 +27,10 @@ Alternatively, click [here](https://1drv.ms/u/s!Al5BF1i8TRVbiQt2whUMwlzTn69R?e=q
 
 ### train model
 
-For example, to train a `resnet512` with dataset under `data`:
+For example, to train a `resnet152` with dataset under `data`:
 
 ```shell
-python train.py data --arch resnet512 --batch-size 128 -j 0 --gpu 0 --pretrained --lr 1e-4 
+python train.py data --arch resnet152 --batch-size 128 -j 0 --gpu 0 --pretrained --lr 1e-4 
 ```
 
 
