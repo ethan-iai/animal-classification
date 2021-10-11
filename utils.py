@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 
 from PIL import Image
 
+
 def read_image(path, shape=None, resample=None):
     """ read single image
 
