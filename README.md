@@ -18,10 +18,10 @@ you could change it by setting the path variable while running the script.
 lude wrappers for these models. Run the model's .py file to download its checkpoint or view instructions for downloading. For example, if you want to download the `Resnet152`'s checkpoint, please run:
 
 ```shell
-python example/resnet512.py path/to/download
+python example/resnet152.py path/to/download
 ```
 
-Alternatively, click [here](https://1drv.ms/u/s!Al5BF1i8TRVbiQt2whUMwlzTn69R?e=qMr3XT) to download `Resnet512`'s checkpoint.
+Alternatively, click [here](https://1drv.ms/u/s!Al5BF1i8TRVbiQt2whUMwlzTn69R?e=qMr3XT) to download `Resnet152`'s checkpoint.
 
 ## Examples
 
@@ -39,7 +39,7 @@ python train.py data --arch resnet152 --batch-size 128 -j 0 --gpu 0 --pretrained
 For example, to inference the labels of images under `data/test` with model resume from `model_best.pth.tar`, it will print out the reusult and dump it to a `json` file as well.
 
 ```shell
-python inference.py --data data/test -a resnet512 --gpu 0 -batch-size 128 -j 0 --resume model_best.pth.tar
+python inference.py --data data/test -a resnet152 --gpu 0 -batch-size 128 -j 0 --resume model_best.pth.tar
 ```
 
 ## reference 
